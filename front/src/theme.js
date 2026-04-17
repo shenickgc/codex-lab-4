@@ -1,91 +1,93 @@
-import { alpha, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#e53935'
+      main: '#000080'
     },
     secondary: {
-      main: '#1e88e5'
+      main: '#008080'
     },
     background: {
-      default: '#f8f4e7',
-      paper: '#fffdf7'
+      default: '#008080',
+      paper: '#c0c0c0'
     },
     text: {
-      primary: '#213547',
-      secondary: '#556273'
+      primary: '#000000',
+      secondary: '#303030'
     },
     success: {
-      main: '#43a047'
+      main: '#008000'
     },
     error: {
-      main: '#d32f2f'
+      main: '#a80000'
     },
     warning: {
-      main: '#f9a825'
+      main: '#c28c00'
     }
   },
   typography: {
-    fontFamily: '"Fredoka", sans-serif',
-    h2: {
-      fontFamily: '"Orbitron", sans-serif',
-      fontWeight: 800,
-      letterSpacing: '0.03em'
-    },
+    fontFamily: '"IBM Plex Sans", sans-serif',
     h4: {
-      fontFamily: '"Orbitron", sans-serif',
-      fontWeight: 800,
-      letterSpacing: '0.03em'
+      fontWeight: 700
     },
     h6: {
-      fontFamily: '"Orbitron", sans-serif',
-      fontWeight: 700,
-      letterSpacing: '0.03em'
+      fontWeight: 700
     },
     button: {
-      fontFamily: '"Orbitron", sans-serif',
-      fontWeight: 700,
-      textTransform: 'none',
-      letterSpacing: '0.04em'
+      fontWeight: 600,
+      textTransform: 'none'
     }
   },
   shape: {
-    borderRadius: 18
+    borderRadius: 0
   },
   components: {
     MuiPaper: {
       styleOverrides: {
         root: {
           backgroundImage: 'none',
-          backgroundColor: '#fffdf7',
-          border: '3px solid #263238',
-          boxShadow: '0 8px 0 rgba(38, 50, 56, 0.18)'
+          backgroundColor: '#c0c0c0',
+          borderTop: '2px solid #ffffff',
+          borderLeft: '2px solid #ffffff',
+          borderRight: '2px solid #404040',
+          borderBottom: '2px solid #404040',
+          boxShadow: 'none'
         }
       }
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          minHeight: 46,
-          paddingInline: 18,
-          borderRadius: 999,
-          border: '2px solid rgba(38, 50, 56, 0.8)',
-          boxShadow: '0 4px 0 rgba(38, 50, 56, 0.14)'
+          minHeight: 34,
+          paddingInline: 14,
+          borderRadius: 0,
+          color: '#000000',
+          backgroundColor: '#c0c0c0',
+          borderTop: '2px solid #ffffff',
+          borderLeft: '2px solid #ffffff',
+          borderRight: '2px solid #404040',
+          borderBottom: '2px solid #404040',
+          boxShadow: 'none'
         },
-        containedPrimary: {
-          color: '#ffffff'
+        contained: {
+          backgroundColor: '#c0c0c0',
+          boxShadow: 'none'
+        },
+        outlined: {
+          border: 'none'
         }
       }
     },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 16,
-          backgroundColor: alpha('#ffffff', 0.92)
+          borderRadius: 0,
+          backgroundColor: '#ffffff'
         },
         notchedOutline: {
+          borderColor: '#7f7f7f',
           borderWidth: '2px'
         }
       }
@@ -93,37 +95,37 @@ export const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius: 999,
-          border: '2px solid rgba(38, 50, 56, 0.22)',
-          fontFamily: '"Orbitron", sans-serif',
-          fontWeight: 700
+          borderRadius: 0,
+          backgroundColor: '#d4d0c8',
+          border: '1px solid #7f7f7f',
+          fontWeight: 600
         }
       }
     },
     MuiTableCell: {
       styleOverrides: {
-        root: {
-          borderColor: alpha('#263238', 0.14)
-        },
         head: {
-          fontFamily: '"Orbitron", sans-serif',
-          color: '#1e88e5',
-          fontWeight: 700
+          backgroundColor: '#d4d0c8',
+          color: '#000000',
+          fontWeight: 700,
+          borderBottom: '2px solid #7f7f7f'
+        },
+        root: {
+          borderBottom: '1px solid #9d9d9d'
         }
       }
     },
     MuiAlert: {
       styleOverrides: {
         root: {
-          borderRadius: 14,
-          border: '2px solid rgba(38, 50, 56, 0.18)'
+          borderRadius: 0
         }
       }
     },
     MuiDialog: {
       styleOverrides: {
         paper: {
-          borderRadius: 22
+          borderRadius: 0
         }
       }
     }
