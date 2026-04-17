@@ -1,0 +1,25 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-net --allow-env --allow-read --watch src/server.js",
+    "start": "deno run --allow-net --allow-env --allow-read src/server.js"
+  },
+  "imports": {
+    "@oak/oak": "jsr:@oak/oak@^17.1.6",
+    "@std/dotenv": "jsr:@std/dotenv@^0.225.5",
+    "@std/http": "jsr:@std/http@^1.0.18",
+    "bcryptjs": "npm:bcryptjs@^3.0.2",
+    "jsonwebtoken": "npm:jsonwebtoken@^9.0.2",
+    "mongodb": "npm:mongodb@^6.16.0"
+  },
+  "fmt": {
+    "semiColons": true,
+    "singleQuote": true
+  },
+  "lint": {
+    "rules": {
+      "tags": [
+        "recommended"
+      ]
+    }
+  }
+}
