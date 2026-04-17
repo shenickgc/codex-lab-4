@@ -1,14 +1,13 @@
 :root {
-  color: #f7f3ff;
+  color: #213547;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(180deg, #171129 0%, #120f23 100%);
-  background-size: 24px 24px, 24px 24px, 100% 100%;
+    radial-gradient(circle at top left, rgba(30, 136, 229, 0.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(229, 57, 53, 0.16), transparent 24%),
+    linear-gradient(180deg, #fef8e8 0%, #f7f1df 100%);
   font-synthesis: none;
-  text-rendering: geometricPrecision;
-  -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -24,7 +23,18 @@ body,
 
 body {
   min-height: 100vh;
-  background-attachment: fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(33, 53, 71, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(33, 53, 71, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.55;
 }
 
 a {
@@ -33,6 +43,5 @@ a {
 }
 
 ::selection {
-  background: rgba(124, 255, 107, 0.35);
-  color: #120f23;
+  background: rgba(30, 136, 229, 0.2);
 }

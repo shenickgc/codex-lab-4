@@ -1,5 +1,5 @@
 import { Alert, Button, MenuItem, Stack, TextField, Typography } from '@mui/material';
-import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
+import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
 import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { AuthShell } from '../components/AuthShell';
@@ -39,7 +39,7 @@ export function RegisterPage() {
       await register(form);
       navigate('/users', { replace: true });
     } catch (requestError) {
-      setError(requestError.response?.data?.message ?? 'No se pudo crear la cuenta');
+      setError(requestError.response?.data?.message ?? 'Registration failed');
     } finally {
       setIsSubmitting(false);
     }
@@ -48,62 +48,49 @@ export function RegisterPage() {
   return (
     <AuthShell
       badge="REGISTER"
-      title="NEW OPERATOR"
-      subtitle="Crea una cuenta administrativa o de usuario para entrar directo al panel protegido."
-      asideTitle="SETUP MODE"
-      asideBody="El registro usa el endpoint real del backend y deja la sesion lista al terminar."
+      title="New Trainer"
+      subtitle="Create a trainer profile and enter the admin arena with an active authenticated session."
+      asideTitle="Registration writes a user in the backend and returns a JWT token."
+      asideBody="Once completed, the new trainer is redirected to the protected user module without extra login."
     >
       <Stack spacing={3}>
         <Stack direction="row" spacing={1.5} alignItems="center">
-          <PersonAddAltRoundedIcon color="primary" />
-          <Typography variant="body1">Registro</Typography>
+          <AppRegistrationRoundedIcon color="primary" />
+          <Typography variant="h6">Create your trainer card</Typography>
         </Stack>
 
         {error ? <Alert severity="error">{error}</Alert> : null}
 
         <Stack component="form" spacing={2} onSubmit={handleSubmit}>
-          <TextField label="Nombre" value={form.name} onChange={handleChange('name')} required fullWidth />
+          <TextField label="Name" value={form.name} onChange={handleChange('name')} required fullWidth />
+          <TextField label="Email" type="email" value={form.email} onChange={handleChange('email')} required fullWidth />
           <TextField
-            label="Correo electronico"
-            type="email"
-            value={form.email}
-            onChange={handleChange('email')}
-            required
-            fullWidth
-          />
-          <TextField
-            label="Contrasena"
+            label="Password"
             type="password"
             value={form.password}
             onChange={handleChange('password')}
-            helperText="Minimo 6 caracteres"
+            helperText="Minimum 6 characters"
             required
             fullWidth
           />
-          <TextField label="Telefono" value={form.phone} onChange={handleChange('phone')} fullWidth />
-          <TextField select label="Tipo de usuario" value={form.userType} onChange={handleChange('userType')} fullWidth>
+          <TextField label="Phone" value={form.phone} onChange={handleChange('phone')} fullWidth />
+          <TextField select label="User type" value={form.userType} onChange={handleChange('userType')} fullWidth>
             <MenuItem value="client">Client</MenuItem>
             <MenuItem value="provider">Provider</MenuItem>
           </TextField>
-
           <Button type="submit" variant="contained" disabled={isSubmitting}>
-            Crear cuenta
+            Register Trainer
           </Button>
         </Stack>
 
         <Typography color="text.secondary">
-          Ya tienes cuenta?{' '}
+          Already registered?{' '}
           <Typography
             component={RouterLink}
             to="/login"
-            sx={{
-              display: 'inline-block',
-              color: 'secondary.main',
-              fontFamily: '"Press Start 2P", cursive',
-              fontSize: '0.72rem'
-            }}
+            sx={{ display: 'inline', color: 'secondary.main', fontWeight: 700 }}
           >
-            Iniciar sesion
+            Go to login
           </Typography>
         </Typography>
       </Stack>

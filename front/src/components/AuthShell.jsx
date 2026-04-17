@@ -6,7 +6,7 @@ export function AuthShell({ badge, title, subtitle, children, asideTitle, asideB
       sx={{
         minHeight: '100vh',
         px: { xs: 2, md: 4 },
-        py: { xs: 2.5, md: 4 },
+        py: { xs: 3, md: 4 },
         display: 'grid',
         alignItems: 'center'
       }}
@@ -14,68 +14,80 @@ export function AuthShell({ badge, title, subtitle, children, asideTitle, asideB
       <Box
         sx={{
           width: '100%',
-          maxWidth: 1240,
+          maxWidth: 1220,
           mx: 'auto',
           display: 'grid',
           gap: 3,
-          gridTemplateColumns: { xs: '1fr', lg: '340px minmax(0, 1fr)' }
+          gridTemplateColumns: { xs: '1fr', lg: '380px minmax(0, 1fr)' }
         }}
       >
-        <Paper sx={{ p: 3 }}>
+        <Paper
+          sx={{
+            p: 3,
+            position: 'relative',
+            overflow: 'hidden',
+            background:
+              'linear-gradient(180deg, rgba(229,57,53,0.12) 0%, rgba(255,253,247,1) 70%)'
+          }}
+        >
           <Stack spacing={3}>
-            <Stack spacing={2}>
-              <Chip
-                label={badge}
-                sx={{
-                  alignSelf: 'flex-start',
-                  bgcolor: 'secondary.main',
-                  color: '#120f23'
-                }}
-              />
-              <Typography variant="h6">SYSTEM PANEL</Typography>
-            </Stack>
+            <Chip
+              label={badge}
+              sx={{
+                alignSelf: 'flex-start',
+                bgcolor: 'primary.main',
+                color: '#ffffff'
+              }}
+            />
 
             <Box
               sx={{
-                border: '3px dashed rgba(255,255,255,0.18)',
-                p: 2,
-                bgcolor: 'rgba(18,15,35,0.45)'
+                p: 2.5,
+                borderRadius: 4,
+                bgcolor: '#ffffff',
+                border: '3px solid #263238'
               }}
             >
-              <Typography variant="body2" color="primary.main">
-                {asideTitle}
+              <Typography variant="h6" sx={{ mb: 1.5 }}>
+                TRAINER LOG
               </Typography>
-              <Typography sx={{ mt: 1.5 }} color="text.secondary">
-                {asideBody}
-              </Typography>
+              <Typography color="text.secondary">{asideTitle}</Typography>
+              <Typography sx={{ mt: 1.5 }}>{asideBody}</Typography>
             </Box>
 
             <Box
               sx={{
-                p: 2,
-                border: '3px solid rgba(255,255,255,0.12)',
-                bgcolor: 'rgba(255,255,255,0.02)'
+                p: 2.5,
+                borderRadius: 4,
+                background:
+                  'linear-gradient(135deg, rgba(30,136,229,0.12) 0%, rgba(255,255,255,0.96) 100%)',
+                border: '3px solid #263238'
               }}
             >
-              <Typography variant="body2" color="secondary.main">
-                STATUS
+              <Typography variant="h6" sx={{ mb: 1.5 }}>
+                TEAM STATUS
               </Typography>
-              <Typography sx={{ mt: 1.5 }}>
-                JWT active
-              </Typography>
-              <Typography color="text.secondary">Protected admin routes</Typography>
-              <Typography sx={{ mt: 1.25 }}>CRUD users online</Typography>
+              <Stack spacing={1}>
+                <Typography color="text.secondary">Auth state ready</Typography>
+                <Typography color="text.secondary">Protected routes active</Typography>
+                <Typography color="text.secondary">Users CRUD connected</Typography>
+              </Stack>
             </Box>
           </Stack>
         </Paper>
 
-        <Paper sx={{ p: { xs: 2.5, md: 3.5 } }}>
+        <Paper
+          sx={{
+            p: { xs: 2.5, md: 3.5 },
+            background:
+              'linear-gradient(180deg, rgba(30,136,229,0.08) 0%, rgba(255,253,247,1) 32%)'
+          }}
+        >
           <Stack spacing={3}>
             <Stack spacing={1.5}>
               <Typography variant="h4">{title}</Typography>
               <Typography color="text.secondary">{subtitle}</Typography>
             </Stack>
-
             {children}
           </Stack>
         </Paper>

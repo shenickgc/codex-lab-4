@@ -2,157 +2,128 @@ import { alpha, createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
     primary: {
-      main: '#7cff6b'
+      main: '#e53935'
     },
     secondary: {
-      main: '#ffd84d'
+      main: '#1e88e5'
     },
     background: {
-      default: '#120f23',
-      paper: '#20173b'
+      default: '#f8f4e7',
+      paper: '#fffdf7'
     },
     text: {
-      primary: '#f7f3ff',
-      secondary: '#b8afcf'
+      primary: '#213547',
+      secondary: '#556273'
     },
     success: {
-      main: '#7cff6b'
+      main: '#43a047'
     },
     error: {
-      main: '#ff6b6b'
+      main: '#d32f2f'
     },
     warning: {
-      main: '#ffb347'
+      main: '#f9a825'
     }
   },
   typography: {
-    fontFamily: '"VT323", monospace',
+    fontFamily: '"Fredoka", sans-serif',
     h2: {
-      fontFamily: '"Press Start 2P", cursive',
-      fontSize: '2rem',
-      lineHeight: 1.35
+      fontFamily: '"Orbitron", sans-serif',
+      fontWeight: 800,
+      letterSpacing: '0.03em'
     },
     h4: {
-      fontFamily: '"Press Start 2P", cursive',
-      fontSize: '1.35rem',
-      lineHeight: 1.5
+      fontFamily: '"Orbitron", sans-serif',
+      fontWeight: 800,
+      letterSpacing: '0.03em'
     },
     h6: {
-      fontFamily: '"Press Start 2P", cursive',
-      fontSize: '1rem',
-      lineHeight: 1.4
-    },
-    body1: {
-      fontSize: '1.7rem',
-      lineHeight: 1.2
-    },
-    body2: {
-      fontSize: '1.35rem',
-      lineHeight: 1.2
+      fontFamily: '"Orbitron", sans-serif',
+      fontWeight: 700,
+      letterSpacing: '0.03em'
     },
     button: {
-      fontFamily: '"Press Start 2P", cursive',
-      fontSize: '0.72rem',
-      textTransform: 'uppercase'
+      fontFamily: '"Orbitron", sans-serif',
+      fontWeight: 700,
+      textTransform: 'none',
+      letterSpacing: '0.04em'
     }
   },
   shape: {
-    borderRadius: 0
+    borderRadius: 18
   },
   components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        body: {
-          imageRendering: 'pixelated'
-        }
-      }
-    },
     MuiPaper: {
       styleOverrides: {
         root: {
           backgroundImage: 'none',
-          backgroundColor: '#20173b',
-          border: '4px solid #0f0b1f',
-          boxShadow: '8px 8px 0 #0f0b1f'
+          backgroundColor: '#fffdf7',
+          border: '3px solid #263238',
+          boxShadow: '0 8px 0 rgba(38, 50, 56, 0.18)'
         }
       }
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          minHeight: 52,
+          minHeight: 46,
           paddingInline: 18,
-          borderRadius: 0,
-          border: '3px solid #0f0b1f',
-          boxShadow: '4px 4px 0 #0f0b1f'
+          borderRadius: 999,
+          border: '2px solid rgba(38, 50, 56, 0.8)',
+          boxShadow: '0 4px 0 rgba(38, 50, 56, 0.14)'
         },
         containedPrimary: {
-          backgroundColor: '#7cff6b',
-          color: '#120f23'
-        },
-        outlined: {
-          borderWidth: '3px'
+          color: '#ffffff'
         }
       }
     },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
-          backgroundColor: alpha('#120f23', 0.58)
+          borderRadius: 16,
+          backgroundColor: alpha('#ffffff', 0.92)
         },
         notchedOutline: {
-          borderWidth: '3px'
-        },
-        input: {
-          fontSize: '1.55rem'
-        }
-      }
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          fontSize: '1.1rem',
-          letterSpacing: '0.04em'
+          borderWidth: '2px'
         }
       }
     },
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
-          border: '3px solid #0f0b1f',
-          fontFamily: '"Press Start 2P", cursive',
-          fontSize: '0.62rem'
+          borderRadius: 999,
+          border: '2px solid rgba(38, 50, 56, 0.22)',
+          fontFamily: '"Orbitron", sans-serif',
+          fontWeight: 700
         }
       }
     },
     MuiTableCell: {
       styleOverrides: {
         root: {
-          borderBottom: '3px solid rgba(255,255,255,0.08)'
+          borderColor: alpha('#263238', 0.14)
         },
         head: {
-          fontFamily: '"Press Start 2P", cursive',
-          fontSize: '0.62rem',
-          color: '#ffd84d'
+          fontFamily: '"Orbitron", sans-serif',
+          color: '#1e88e5',
+          fontWeight: 700
         }
       }
     },
     MuiAlert: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
-          border: '3px solid #0f0b1f'
+          borderRadius: 14,
+          border: '2px solid rgba(38, 50, 56, 0.18)'
         }
       }
     },
     MuiDialog: {
       styleOverrides: {
         paper: {
-          borderRadius: 0
+          borderRadius: 22
         }
       }
     }

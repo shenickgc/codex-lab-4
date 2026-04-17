@@ -1,5 +1,5 @@
 import { Alert, Button, Stack, TextField, Typography } from '@mui/material';
-import LockRoundedIcon from '@mui/icons-material/LockRounded';
+import CatchingPokemonRoundedIcon from '@mui/icons-material/CatchingPokemonRounded';
 import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { AuthShell } from '../components/AuthShell';
@@ -34,7 +34,7 @@ export function LoginPage() {
       await login(form);
       navigate(destination, { replace: true });
     } catch (requestError) {
-      setError(requestError.response?.data?.message ?? 'No se pudo iniciar sesion');
+      setError(requestError.response?.data?.message ?? 'Login failed');
     } finally {
       setIsSubmitting(false);
     }
@@ -43,22 +43,22 @@ export function LoginPage() {
   return (
     <AuthShell
       badge="LOGIN"
-      title="ACCESS NODE"
-      subtitle="Entra al modulo administrativo y gestiona usuarios desde un panel retro con rutas protegidas."
-      asideTitle="AUTH CHECKPOINT"
-      asideBody="Cada sesion usa token JWT. Si el token no existe o expira, el acceso vuelve al login."
+      title="Trainer Access"
+      subtitle="Enter the admin console, validate your session and continue to the user management arena."
+      asideTitle="Only authenticated trainers can enter the protected routes."
+      asideBody="The app stores the token locally and sends it automatically on every protected request to the backend."
     >
       <Stack spacing={3}>
         <Stack direction="row" spacing={1.5} alignItems="center">
-          <LockRoundedIcon color="primary" />
-          <Typography variant="body1">Inicio de sesion</Typography>
+          <CatchingPokemonRoundedIcon color="primary" />
+          <Typography variant="h6">Sign in to the control center</Typography>
         </Stack>
 
         {error ? <Alert severity="error">{error}</Alert> : null}
 
         <Stack component="form" spacing={2} onSubmit={handleSubmit}>
           <TextField
-            label="Correo electronico"
+            label="Email"
             type="email"
             value={form.email}
             onChange={handleChange('email')}
@@ -66,7 +66,7 @@ export function LoginPage() {
             fullWidth
           />
           <TextField
-            label="Contrasena"
+            label="Password"
             type="password"
             value={form.password}
             onChange={handleChange('password')}
@@ -74,31 +74,21 @@ export function LoginPage() {
             fullWidth
           />
           <Button type="submit" variant="contained" disabled={isSubmitting}>
-            Entrar
+            Start Session
           </Button>
         </Stack>
 
         <Typography color="text.secondary">
-          No tienes cuenta? <BoxLink to="/register">Crear registro</BoxLink>
+          No account yet?{' '}
+          <Typography
+            component={RouterLink}
+            to="/register"
+            sx={{ display: 'inline', color: 'secondary.main', fontWeight: 700 }}
+          >
+            Register trainer
+          </Typography>
         </Typography>
       </Stack>
     </AuthShell>
-  );
-}
-
-function BoxLink({ to, children }) {
-  return (
-    <Typography
-      component={RouterLink}
-      to={to}
-      sx={{
-        display: 'inline-block',
-        color: 'secondary.main',
-        fontFamily: '"Press Start 2P", cursive',
-        fontSize: '0.72rem'
-      }}
-    >
-      {children}
-    </Typography>
   );
 }

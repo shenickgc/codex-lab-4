@@ -1,52 +1,70 @@
-# Backend Deno + MongoDB
+# Backend API
 
-API backend en Deno con JavaScript para autenticacion y gestion de usuarios tipo `client` y `provider`.
+Backend API built with Deno, Oak and MongoDB for authentication and user management.
 
-## Funcionalidades
+## Stack
 
-- Registro de usuarios
-- Login con JWT
-- Recuperacion de contrasena por token
-- CRUD de usuarios
-- Persistencia en MongoDB
-- Swagger UI para documentacion
+- Deno 2
+- Oak
+- MongoDB driver
+- bcryptjs
+- jsonwebtoken
 
-## Requisitos
+## What it does
+
+- Registers users with `client` or `provider` role
+- Authenticates with JWT
+- Generates password reset tokens
+- Exposes protected CRUD endpoints for users
+- Publishes OpenAPI documentation and Swagger UI
+
+## Run locally
+
+### Requirements
 
 - Deno 2.x
-- MongoDB disponible local o remoto
+- MongoDB Atlas or a local MongoDB server
 
-## Configuración
+### Environment
 
-1. Copia `.env.example` a `.env`
-2. Ajusta las variables de entorno
-3. Ejecuta:
+Expected variables:
+
+- `PORT`
+- `MONGODB_URI`
+- `MONGODB_DB_NAME`
+- `JWT_SECRET`
+- `JWT_EXPIRES_IN`
+- `RESET_TOKEN_EXPIRES_MINUTES`
+
+The app tries to load:
+
+1. `.env`
+2. `.env.example`
+
+This means `.env.example` can work as a fallback during local setup.
+
+### Start the server
 
 ```bash
 deno task dev
 ```
 
-## Variables de entorno
+Production-like run:
 
-- `PORT`: puerto del servidor
-- `MONGODB_URI`: cadena de conexion de MongoDB
-- `MONGODB_DB_NAME`: nombre de la base de datos
-- `JWT_SECRET`: secreto para firmar tokens
-- `JWT_EXPIRES_IN`: duración del JWT
-- `RESET_TOKEN_EXPIRES_MINUTES`: minutos de vigencia del token de recuperacion
+```bash
+deno task start
+```
 
-## Seguridad
+## API routes
 
-Rutas publicas:
+### Public auth routes
 
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `POST /api/auth/forgot-password`
 - `POST /api/auth/reset-password`
-- `GET /docs`
-- `GET /docs/openapi.json`
 
-Rutas protegidas con JWT:
+### Protected user routes
 
 - `POST /api/users`
 - `GET /api/users`
@@ -54,37 +72,29 @@ Rutas protegidas con JWT:
 - `PUT /api/users/:id`
 - `DELETE /api/users/:id`
 
-Para usar las rutas protegidas debes enviar:
+### Documentation routes
+
+- `GET /docs`
+- `GET /docs/openapi.json`
+
+## Auth contract
+
+Protected endpoints require a bearer token:
 
 ```http
 Authorization: Bearer <token>
 ```
 
-## Endpoints
+The token is created after `register` and `login`.
 
-### Auth
+## Example payloads
 
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `POST /api/auth/forgot-password`
-- `POST /api/auth/reset-password`
-
-### Users
-
-- `POST /api/users`
-- `GET /api/users`
-- `GET /api/users/:id`
-- `PUT /api/users/:id`
-- `DELETE /api/users/:id`
-
-## Ejemplos de payload
-
-### Registro
+### Register
 
 ```json
 {
-  "name": "Juan Perez",
-  "email": "juan@example.com",
+  "name": "Ash Ketchum",
+  "email": "ash@example.com",
   "password": "Secret123",
   "phone": "5551234567",
   "userType": "client"
@@ -95,26 +105,45 @@ Authorization: Bearer <token>
 
 ```json
 {
-  "email": "juan@example.com",
+  "email": "ash@example.com",
   "password": "Secret123"
 }
 ```
 
-### Recuperar contraseña
+### Forgot password
 
 ```json
 {
-  "email": "juan@example.com"
+  "email": "ash@example.com"
 }
 ```
 
-La respuesta entrega el token temporal de recuperacion. En produccion conviene enviarlo por correo.
+## Internal flow
 
-## Swagger
+- `src/server.js`: boots the app and database connection
+- `src/app.js`: mounts middleware and routes
+- `src/config/`: environment and MongoDB setup
+- `src/controllers/`: request handling
+- `src/services/`: business rules and validation
+- `src/repositories/`: MongoDB operations
+- `src/middlewares/`: auth, error and not found handlers
+- `src/utils/`: token generation, serializer and error helper
 
-- UI: `GET /docs`
-- JSON OpenAPI: `GET /docs/openapi.json`
+## Database notes
 
-## Arquitectura sugerida
+At startup the app:
 
-La propuesta de arquitectura para mejores practicas esta documentada en [ARCHITECTURE.md](c:\Users\shenick.guzman\Documents\GitHub\codex-back\back\ARCHITECTURE.md).
+- connects to MongoDB
+- selects `env.MONGODB_DB_NAME`
+- creates a unique index on `users.email`
+- creates a sparse index on `users.resetPasswordToken`
+
+## OpenAPI
+
+- Swagger UI: `GET /docs`
+- OpenAPI JSON: `GET /docs/openapi.json`
+
+## Related files
+
+- Architecture notes: [ARCHITECTURE.md](c:/Users/shenick.guzman/Documents/GitHub/codex-back/back/ARCHITECTURE.md)
+- Root guide: [../README.md](c:/Users/shenick.guzman/Documents/GitHub/codex-back/README.md)

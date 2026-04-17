@@ -5,6 +5,7 @@ import {
   Button,
   Chip,
   IconButton,
+  LinearProgress,
   Paper,
   Stack,
   Table,
@@ -19,7 +20,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 import ShieldRoundedIcon from '@mui/icons-material/ShieldRounded';
 import { useEffect, useState } from 'react';
@@ -38,12 +39,33 @@ function buildStats(users) {
   const providers = users.filter((item) => item.userType === 'provider').length;
   const clients = users.filter((item) => item.userType === 'client').length;
   const active = users.filter((item) => item.isActive).length;
+  const total = users.length || 1;
 
   return [
-    { label: 'TOTAL', value: users.length, tone: '#7cff6b' },
-    { label: 'ACTIVE', value: active, tone: '#ffd84d' },
-    { label: 'PROVIDER', value: providers, tone: '#72f1ff' },
-    { label: 'CLIENT', value: clients, tone: '#ff9de1' }
+    {
+      label: 'Pokedex Users',
+      value: users.length,
+      progress: Math.min(100, (users.length / 12) * 100),
+      color: '#e53935'
+    },
+    {
+      label: 'Active Trainers',
+      value: active,
+      progress: (active / total) * 100,
+      color: '#43a047'
+    },
+    {
+      label: 'Providers',
+      value: providers,
+      progress: (providers / total) * 100,
+      color: '#1e88e5'
+    },
+    {
+      label: 'Clients',
+      value: clients,
+      progress: (clients / total) * 100,
+      color: '#f9a825'
+    }
   ];
 }
 
@@ -72,7 +94,7 @@ export function UsersPage() {
         return;
       }
 
-      setError(requestError.response?.data?.message ?? 'No se pudieron cargar los usuarios');
+      setError(requestError.response?.data?.message ?? 'Could not load users');
     } finally {
       setIsLoading(false);
     }
@@ -108,7 +130,7 @@ export function UsersPage() {
       setDialogOpen(false);
       setSelectedUser(null);
     } catch (requestError) {
-      setError(requestError.response?.data?.message ?? 'No se pudo guardar el usuario');
+      setError(requestError.response?.data?.message ?? 'Could not save user');
     } finally {
       setIsSaving(false);
     }
@@ -127,7 +149,7 @@ export function UsersPage() {
       setUsers((current) => current.filter((item) => item.id !== userToDelete.id));
       setUserToDelete(null);
     } catch (requestError) {
-      setError(requestError.response?.data?.message ?? 'No se pudo eliminar el usuario');
+      setError(requestError.response?.data?.message ?? 'Could not delete user');
     } finally {
       setIsSaving(false);
     }
@@ -136,49 +158,63 @@ export function UsersPage() {
   const stats = buildStats(users);
 
   return (
-    <Box sx={{ minHeight: '100vh', px: { xs: 2, md: 3 }, py: { xs: 2, md: 3 } }}>
-      <Stack spacing={3} sx={{ maxWidth: 1380, mx: 'auto' }}>
-        <Paper sx={{ p: { xs: 2, md: 3 } }}>
+    <Box sx={{ minHeight: '100vh', px: { xs: 2, md: 4 }, py: { xs: 3, md: 4 } }}>
+      <Stack spacing={3} sx={{ maxWidth: 1320, mx: 'auto' }}>
+        <Paper
+          sx={{
+            p: { xs: 2.5, md: 3 },
+            background:
+              'linear-gradient(180deg, rgba(229,57,53,0.14) 0%, rgba(255,253,247,1) 36%)'
+          }}
+        >
           <Stack spacing={3}>
             <Stack
-              direction={{ xs: 'column', xl: 'row' }}
-              spacing={2}
+              direction={{ xs: 'column', lg: 'row' }}
               justifyContent="space-between"
-              alignItems={{ xs: 'flex-start', xl: 'center' }}
+              alignItems={{ xs: 'flex-start', lg: 'center' }}
+              spacing={2}
             >
               <Stack direction="row" spacing={2} alignItems="center">
                 <Avatar
                   sx={{
-                    width: 58,
-                    height: 58,
+                    width: 62,
+                    height: 62,
                     bgcolor: 'primary.main',
-                    color: '#120f23',
-                    border: '3px solid #0f0b1f'
+                    color: '#ffffff',
+                    border: '3px solid #263238'
                   }}
                 >
                   <ShieldRoundedIcon />
                 </Avatar>
                 <Box>
-                  <Typography variant="h4">USER ADMIN GRID</Typography>
+                  <Typography variant="h4">Trainer Admin</Typography>
                   <Typography color="text.secondary">
-                    Panel administrativo para crear, editar y eliminar usuarios.
+                    Control users, sessions and trainer roles from one protected command screen.
                   </Typography>
                 </Box>
               </Stack>
 
-              <Stack direction={{ xs: 'column', md: 'row' }} spacing={1.25}>
-                <Chip label={user?.email ?? 'Sesión activa'} sx={{ bgcolor: '#ffd84d', color: '#120f23' }} />
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.25}>
+                <Chip
+                  label={user?.email ?? 'Authenticated'}
+                  sx={{ bgcolor: 'secondary.main', color: '#ffffff' }}
+                />
                 <Button startIcon={<RefreshRoundedIcon />} onClick={loadUsers} disabled={isLoading}>
-                  Refrescar
+                  Refresh
                 </Button>
                 <Button variant="contained" startIcon={<AddRoundedIcon />} onClick={openCreateDialog}>
-                  Nuevo
+                  Add User
                 </Button>
-                <Button color="secondary" variant="outlined" startIcon={<LogoutRoundedIcon />} onClick={() => {
-                  logout();
-                  navigate('/login', { replace: true });
-                }}>
-                  Salir
+                <Button
+                  color="secondary"
+                  variant="outlined"
+                  startIcon={<LogoutRoundedIcon />}
+                  onClick={() => {
+                    logout();
+                    navigate('/login', { replace: true });
+                  }}
+                >
+                  Logout
                 </Button>
               </Stack>
             </Stack>
@@ -187,25 +223,48 @@ export function UsersPage() {
               sx={{
                 display: 'grid',
                 gap: 2,
-                gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }
+                gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }
               }}
             >
               {stats.map((item) => (
                 <Paper
                   key={item.label}
                   sx={{
-                    p: 2,
-                    bgcolor: 'rgba(18,15,35,0.5)',
-                    borderColor: item.tone,
-                    boxShadow: `8px 8px 0 ${item.tone}`
+                    p: 2.25,
+                    borderColor: item.color,
+                    backgroundColor: '#ffffff'
                   }}
                 >
-                  <Typography variant="body2" sx={{ color: item.tone }}>
-                    {item.label}
-                  </Typography>
-                  <Typography variant="h4" sx={{ mt: 1.5 }}>
-                    {item.value}
-                  </Typography>
+                  <Stack spacing={1.25}>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                      <Typography variant="h6" sx={{ fontSize: '0.95rem' }}>
+                        {item.label}
+                      </Typography>
+                      <Avatar
+                        sx={{
+                          width: 34,
+                          height: 34,
+                          bgcolor: item.color,
+                          color: '#ffffff'
+                        }}
+                      >
+                        <PeopleAltRoundedIcon sx={{ fontSize: 18 }} />
+                      </Avatar>
+                    </Stack>
+                    <Typography variant="h4">{item.value}</Typography>
+                    <LinearProgress
+                      variant="determinate"
+                      value={item.progress}
+                      sx={{
+                        height: 10,
+                        borderRadius: 999,
+                        bgcolor: 'rgba(33,53,71,0.12)',
+                        '& .MuiLinearProgress-bar': {
+                          backgroundColor: item.color
+                        }
+                      }}
+                    />
+                  </Stack>
                 </Paper>
               ))}
             </Box>
@@ -214,16 +273,16 @@ export function UsersPage() {
 
         {error ? <Alert severity="error">{error}</Alert> : null}
 
-        <Paper sx={{ p: { xs: 1.5, md: 2 } }}>
+        <Paper sx={{ p: { xs: 1.5, md: 2.25 } }}>
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Usuario</TableCell>
-                  <TableCell>Contacto</TableCell>
-                  <TableCell>Tipo</TableCell>
-                  <TableCell>Estado</TableCell>
-                  <TableCell align="right">Acciones</TableCell>
+                  <TableCell>Trainer</TableCell>
+                  <TableCell>Contact</TableCell>
+                  <TableCell>Role</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell align="right">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -233,40 +292,43 @@ export function UsersPage() {
                       <Stack direction="row" spacing={1.5} alignItems="center">
                         <Avatar
                           sx={{
-                            bgcolor: '#2a2149',
-                            color: 'primary.main',
-                            border: '3px solid #0f0b1f'
+                            bgcolor: item.userType === 'provider' ? '#1e88e5' : '#e53935',
+                            color: '#ffffff'
                           }}
                         >
-                          <PersonOutlineRoundedIcon />
+                          <PeopleAltRoundedIcon />
                         </Avatar>
                         <Box>
-                          <Typography>{item.name}</Typography>
-                          <Typography color="text.secondary">ID {item.id.slice(0, 8)}</Typography>
+                          <Typography fontWeight={700}>{item.name}</Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            ID: {item.id.slice(0, 8)}
+                          </Typography>
                         </Box>
                       </Stack>
                     </TableCell>
                     <TableCell>
                       <Typography>{item.email}</Typography>
-                      <Typography color="text.secondary">{item.phone || 'Sin teléfono'}</Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {item.phone || 'No phone registered'}
+                      </Typography>
                     </TableCell>
                     <TableCell>
                       <Chip
                         size="small"
-                        label={item.userType === 'provider' ? 'PROVIDER' : 'CLIENT'}
+                        label={item.userType === 'provider' ? 'Provider' : 'Client'}
                         sx={{
-                          bgcolor: item.userType === 'provider' ? '#72f1ff' : '#ff9de1',
-                          color: '#120f23'
+                          bgcolor: item.userType === 'provider' ? 'rgba(30,136,229,0.14)' : 'rgba(229,57,53,0.14)',
+                          color: item.userType === 'provider' ? '#1e88e5' : '#e53935'
                         }}
                       />
                     </TableCell>
                     <TableCell>
                       <Chip
                         size="small"
-                        label={item.isActive ? 'ACTIVE' : 'OFFLINE'}
+                        label={item.isActive ? 'Active' : 'Inactive'}
                         sx={{
-                          bgcolor: item.isActive ? '#7cff6b' : '#6d6690',
-                          color: '#120f23'
+                          bgcolor: item.isActive ? 'rgba(67,160,71,0.14)' : 'rgba(85,98,115,0.14)',
+                          color: item.isActive ? '#2e7d32' : '#556273'
                         }}
                       />
                     </TableCell>
@@ -285,7 +347,7 @@ export function UsersPage() {
                   <TableRow>
                     <TableCell colSpan={5}>
                       <Typography py={5} textAlign="center" color="text.secondary">
-                        No hay usuarios registrados todavía.
+                        No users registered yet.
                       </Typography>
                     </TableCell>
                   </TableRow>
@@ -295,7 +357,7 @@ export function UsersPage() {
                   <TableRow>
                     <TableCell colSpan={5}>
                       <Typography py={5} textAlign="center" color="text.secondary">
-                        Cargando usuarios...
+                        Loading users...
                       </Typography>
                     </TableCell>
                   </TableRow>
@@ -321,9 +383,9 @@ export function UsersPage() {
 
       <ConfirmDialog
         open={Boolean(userToDelete)}
-        title="Eliminar usuario"
-        description={`Esta acción eliminará a ${userToDelete?.name ?? 'este usuario'} de forma permanente.`}
-        confirmText="Eliminar"
+        title="Release trainer"
+        description={`This action will permanently delete ${userToDelete?.name ?? 'this user'}.`}
+        confirmText="Delete"
         onClose={() => {
           if (!isSaving) {
             setUserToDelete(null);
