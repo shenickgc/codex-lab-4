@@ -13,10 +13,12 @@ export function ConfirmDialog({
     <Dialog open={open} onClose={isLoading ? undefined : onClose} maxWidth="xs" fullWidth>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <Typography color="text.secondary">{description}</Typography>
+        <Typography color="text.secondary" sx={{ lineHeight: 1.7 }}>
+          {description}
+        </Typography>
       </DialogContent>
       <DialogActions sx={{ px: 3, pb: 3 }}>
-        <Button onClick={onClose} disabled={isLoading} color="secondary" variant="outlined">
+        <Button onClick={onClose} disabled={isLoading} color="inherit">
           Cancel
         </Button>
         <Button onClick={onConfirm} color="error" variant="contained" disabled={isLoading}>

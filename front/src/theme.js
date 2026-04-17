@@ -1,131 +1,105 @@
-import { createTheme } from '@mui/material/styles';
+import { alpha, createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#000080'
+      main: '#1877f2'
     },
     secondary: {
-      main: '#008080'
+      main: '#e1306c'
     },
     background: {
-      default: '#008080',
-      paper: '#c0c0c0'
+      default: '#f2f5f9',
+      paper: '#ffffff'
     },
     text: {
-      primary: '#000000',
-      secondary: '#303030'
+      primary: '#1c1e21',
+      secondary: '#65676b'
     },
     success: {
-      main: '#008000'
+      main: '#31a24c'
     },
     error: {
-      main: '#a80000'
+      main: '#d93025'
     },
     warning: {
-      main: '#c28c00'
+      main: '#f7b928'
     }
   },
   typography: {
-    fontFamily: '"IBM Plex Sans", sans-serif',
+    fontFamily: '"Inter", sans-serif',
     h4: {
-      fontWeight: 700
+      fontWeight: 800,
+      letterSpacing: '-0.03em'
     },
     h6: {
-      fontWeight: 700
+      fontWeight: 700,
+      letterSpacing: '-0.02em'
     },
     button: {
-      fontWeight: 600,
+      fontWeight: 700,
       textTransform: 'none'
     }
   },
   shape: {
-    borderRadius: 0
+    borderRadius: 20
   },
   components: {
     MuiPaper: {
       styleOverrides: {
         root: {
           backgroundImage: 'none',
-          backgroundColor: '#c0c0c0',
-          borderTop: '2px solid #ffffff',
-          borderLeft: '2px solid #ffffff',
-          borderRight: '2px solid #404040',
-          borderBottom: '2px solid #404040',
-          boxShadow: 'none'
+          backgroundColor: '#ffffff',
+          border: `1px solid ${alpha('#1c1e21', 0.08)}`,
+          boxShadow: '0 10px 30px rgba(28, 30, 33, 0.08)'
         }
       }
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          minHeight: 34,
-          paddingInline: 14,
-          borderRadius: 0,
-          color: '#000000',
-          backgroundColor: '#c0c0c0',
-          borderTop: '2px solid #ffffff',
-          borderLeft: '2px solid #ffffff',
-          borderRight: '2px solid #404040',
-          borderBottom: '2px solid #404040',
+          minHeight: 44,
+          paddingInline: 18,
+          borderRadius: 14,
           boxShadow: 'none'
         },
         contained: {
-          backgroundColor: '#c0c0c0',
           boxShadow: 'none'
-        },
-        outlined: {
-          border: 'none'
         }
       }
     },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
-          backgroundColor: '#ffffff'
-        },
-        notchedOutline: {
-          borderColor: '#7f7f7f',
-          borderWidth: '2px'
+          borderRadius: 14,
+          backgroundColor: '#f7f8fa'
         }
       }
     },
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
-          backgroundColor: '#d4d0c8',
-          border: '1px solid #7f7f7f',
-          fontWeight: 600
+          borderRadius: 999,
+          fontWeight: 700
         }
       }
     },
     MuiTableCell: {
       styleOverrides: {
         head: {
-          backgroundColor: '#d4d0c8',
-          color: '#000000',
-          fontWeight: 700,
-          borderBottom: '2px solid #7f7f7f'
+          color: '#65676b',
+          fontWeight: 700
         },
         root: {
-          borderBottom: '1px solid #9d9d9d'
-        }
-      }
-    },
-    MuiAlert: {
-      styleOverrides: {
-        root: {
-          borderRadius: 0
+          borderColor: alpha('#1c1e21', 0.08)
         }
       }
     },
     MuiDialog: {
       styleOverrides: {
         paper: {
-          borderRadius: 0
+          borderRadius: 24
         }
       }
     }

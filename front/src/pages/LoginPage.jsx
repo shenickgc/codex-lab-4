@@ -1,5 +1,5 @@
 import { Alert, Button, Stack, TextField, Typography } from '@mui/material';
-import CatchingPokemonRoundedIcon from '@mui/icons-material/CatchingPokemonRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { AuthShell } from '../components/AuthShell';
@@ -42,16 +42,16 @@ export function LoginPage() {
 
   return (
     <AuthShell
-      badge="LOGIN"
-      title="Trainer Access"
-      subtitle="Enter the admin console, validate your session and continue to the user management arena."
-      asideTitle="Only authenticated trainers can enter the protected routes."
-      asideBody="The app stores the token locally and sends it automatically on every protected request to the backend."
+      badge="Login"
+      title="Sign in to Meta Admin"
+      subtitle="Access the protected workspace, manage users and continue with a persistent authenticated session."
+      asideTitle="This interface is designed like a modern social platform admin flow."
+      asideBody="The token is persisted locally and added automatically to the protected backend requests after login."
     >
       <Stack spacing={3}>
         <Stack direction="row" spacing={1.5} alignItems="center">
-          <CatchingPokemonRoundedIcon color="primary" />
-          <Typography variant="h6">Sign in to the control center</Typography>
+          <PublicRoundedIcon color="primary" />
+          <Typography variant="h6">Welcome back</Typography>
         </Stack>
 
         {error ? <Alert severity="error">{error}</Alert> : null}
@@ -74,18 +74,18 @@ export function LoginPage() {
             fullWidth
           />
           <Button type="submit" variant="contained" disabled={isSubmitting}>
-            Start Session
+            Continue
           </Button>
         </Stack>
 
         <Typography color="text.secondary">
-          No account yet?{' '}
+          Need an account?{' '}
           <Typography
             component={RouterLink}
             to="/register"
-            sx={{ display: 'inline', color: 'secondary.main', fontWeight: 700 }}
+            sx={{ display: 'inline', color: 'primary.main', fontWeight: 700 }}
           >
-            Register trainer
+            Create one
           </Typography>
         </Typography>
       </Stack>

@@ -1,5 +1,5 @@
 import { Alert, Button, MenuItem, Stack, TextField, Typography } from '@mui/material';
-import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
+import PersonAddAlt1RoundedIcon from '@mui/icons-material/PersonAddAlt1Rounded';
 import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { AuthShell } from '../components/AuthShell';
@@ -47,16 +47,16 @@ export function RegisterPage() {
 
   return (
     <AuthShell
-      badge="REGISTER"
-      title="New Trainer"
-      subtitle="Create a trainer profile and enter the admin arena with an active authenticated session."
-      asideTitle="Registration writes a user in the backend and returns a JWT token."
-      asideBody="Once completed, the new trainer is redirected to the protected user module without extra login."
+      badge="Register"
+      title="Create your admin profile"
+      subtitle="Set up a new account, receive a token from the backend and enter the protected user management flow."
+      asideTitle="Registration and login share the same product-style visual language."
+      asideBody="This page consumes the backend register endpoint and opens the session automatically on success."
     >
       <Stack spacing={3}>
         <Stack direction="row" spacing={1.5} alignItems="center">
-          <AppRegistrationRoundedIcon color="primary" />
-          <Typography variant="h6">Create your trainer card</Typography>
+          <PersonAddAlt1RoundedIcon color="primary" />
+          <Typography variant="h6">Create account</Typography>
         </Stack>
 
         {error ? <Alert severity="error">{error}</Alert> : null}
@@ -79,18 +79,18 @@ export function RegisterPage() {
             <MenuItem value="provider">Provider</MenuItem>
           </TextField>
           <Button type="submit" variant="contained" disabled={isSubmitting}>
-            Register Trainer
+            Create profile
           </Button>
         </Stack>
 
         <Typography color="text.secondary">
-          Already registered?{' '}
+          Already have access?{' '}
           <Typography
             component={RouterLink}
             to="/login"
-            sx={{ display: 'inline', color: 'secondary.main', fontWeight: 700 }}
+            sx={{ display: 'inline', color: 'primary.main', fontWeight: 700 }}
           >
-            Go to login
+            Sign in
           </Typography>
         </Typography>
       </Stack>

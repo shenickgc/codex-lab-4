@@ -67,7 +67,7 @@ export function UserDialog({ open, user, onClose, onSubmit, isSaving }) {
   return (
     <Dialog open={open} onClose={isSaving ? undefined : onClose} fullWidth maxWidth="sm">
       <form onSubmit={handleSubmit}>
-        <DialogTitle>{user ? 'Edit trainer' : 'Create trainer'}</DialogTitle>
+        <DialogTitle>{user ? 'Edit user' : 'Create user'}</DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 0.5 }}>
             <Grid size={{ xs: 12, sm: 6 }}>
@@ -112,14 +112,14 @@ export function UserDialog({ open, user, onClose, onSubmit, isSaving }) {
                   px: 2,
                   py: 1.5,
                   borderRadius: 4,
-                  bgcolor: 'rgba(67,160,71,0.08)',
-                  border: '2px solid rgba(38, 50, 56, 0.18)'
+                  bgcolor: 'rgba(24,119,242,0.06)',
+                  border: '1px solid rgba(24,119,242,0.12)'
                 }}
               >
                 <div>
-                  <Typography fontWeight={700}>Active trainer</Typography>
+                  <Typography fontWeight={700}>Active account</Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Controls access to the admin ecosystem
+                    Controls access to protected sections
                   </Typography>
                 </div>
                 <Switch checked={form.isActive} onChange={handleChange('isActive')} />
@@ -128,11 +128,11 @@ export function UserDialog({ open, user, onClose, onSubmit, isSaving }) {
           </Grid>
         </DialogContent>
         <DialogActions sx={{ px: 3, pb: 3 }}>
-          <Button onClick={onClose} disabled={isSaving} color="secondary" variant="outlined">
+          <Button onClick={onClose} disabled={isSaving} color="inherit">
             Cancel
           </Button>
           <Button type="submit" variant="contained" disabled={isSaving}>
-            {user ? 'Save changes' : 'Create trainer'}
+            {user ? 'Save changes' : 'Create user'}
           </Button>
         </DialogActions>
       </form>

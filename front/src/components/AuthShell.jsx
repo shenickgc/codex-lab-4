@@ -1,28 +1,5 @@
-import { Box, Chip, Paper, Stack, Typography } from '@mui/material';
-
-function WindowTitleBar({ title }) {
-  return (
-    <Box
-      sx={{
-        px: 1.25,
-        py: 0.75,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        bgcolor: 'primary.main',
-        color: '#ffffff',
-        fontWeight: 700
-      }}
-    >
-      <Typography sx={{ fontSize: '0.95rem', fontWeight: 700 }}>{title}</Typography>
-      <Box sx={{ display: 'flex', gap: 0.5 }}>
-        <Box sx={{ width: 14, height: 14, bgcolor: '#c0c0c0', border: '1px solid #000' }} />
-        <Box sx={{ width: 14, height: 14, bgcolor: '#c0c0c0', border: '1px solid #000' }} />
-        <Box sx={{ width: 14, height: 14, bgcolor: '#c0c0c0', border: '1px solid #000' }} />
-      </Box>
-    </Box>
-  );
-}
+import { Avatar, Box, Chip, Paper, Stack, Typography } from '@mui/material';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 
 export function AuthShell({ badge, title, subtitle, children, asideTitle, asideBody }) {
   return (
@@ -38,37 +15,72 @@ export function AuthShell({ badge, title, subtitle, children, asideTitle, asideB
       <Box
         sx={{
           width: '100%',
-          maxWidth: 1120,
+          maxWidth: 1180,
           mx: 'auto',
           display: 'grid',
           gap: 3,
-          gridTemplateColumns: { xs: '1fr', lg: '320px minmax(0, 1fr)' }
+          gridTemplateColumns: { xs: '1fr', lg: '420px minmax(0, 1fr)' }
         }}
       >
-        <Paper>
-          <WindowTitleBar title="system.exe" />
-          <Stack spacing={2} sx={{ p: 2 }}>
-            <Chip label={badge} sx={{ alignSelf: 'flex-start' }} />
-            <Box sx={{ p: 1.5, bgcolor: '#ffffff', border: '1px solid #7f7f7f' }}>
-              <Typography variant="h6" sx={{ mb: 1 }}>
-                Notice
+        <Paper
+          sx={{
+            p: 3,
+            background:
+              'linear-gradient(180deg, rgba(24,119,242,0.08) 0%, rgba(255,255,255,1) 60%)'
+          }}
+        >
+          <Stack spacing={3}>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Avatar
+                sx={{
+                  width: 56,
+                  height: 56,
+                  bgcolor: 'primary.main'
+                }}
+              >
+                <GroupsRoundedIcon />
+              </Avatar>
+              <Stack spacing={0.5}>
+                <Chip label={badge} color="primary" sx={{ alignSelf: 'flex-start' }} />
+                <Typography variant="h6">Meta-style admin access</Typography>
+              </Stack>
+            </Stack>
+
+            <Box
+              sx={{
+                p: 2.5,
+                borderRadius: 5,
+                bgcolor: '#f7fafe',
+                border: '1px solid rgba(24,119,242,0.12)'
+              }}
+            >
+              <Typography variant="h6" sx={{ mb: 1.25 }}>
+                Overview
               </Typography>
               <Typography color="text.secondary">{asideTitle}</Typography>
             </Box>
-            <Box sx={{ p: 1.5, bgcolor: '#ffffff', border: '1px solid #7f7f7f' }}>
-              <Typography>{asideBody}</Typography>
+
+            <Box
+              sx={{
+                p: 2.5,
+                borderRadius: 5,
+                bgcolor: '#ffffff',
+                border: '1px solid rgba(28,30,33,0.08)'
+              }}
+            >
+              <Typography sx={{ lineHeight: 1.7 }}>{asideBody}</Typography>
             </Box>
-            <Box sx={{ p: 1.5, bgcolor: '#d4d0c8', border: '1px solid #7f7f7f' }}>
-              <Typography variant="body2">status: auth online</Typography>
-              <Typography variant="body2">routes: protected</Typography>
-              <Typography variant="body2">module: users</Typography>
-            </Box>
+
+            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+              <Chip label="JWT session" sx={{ bgcolor: 'rgba(24,119,242,0.1)', color: 'primary.main' }} />
+              <Chip label="Protected routes" sx={{ bgcolor: 'rgba(49,162,76,0.12)', color: 'success.main' }} />
+              <Chip label="Users CRUD" sx={{ bgcolor: 'rgba(225,48,108,0.1)', color: 'secondary.main' }} />
+            </Stack>
           </Stack>
         </Paper>
 
-        <Paper>
-          <WindowTitleBar title="auth-panel.exe" />
-          <Stack spacing={2} sx={{ p: { xs: 2, md: 2.5 } }}>
+        <Paper sx={{ p: { xs: 2.5, md: 3.5 } }}>
+          <Stack spacing={3}>
             <Stack spacing={1}>
               <Typography variant="h4">{title}</Typography>
               <Typography color="text.secondary">{subtitle}</Typography>
